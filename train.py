@@ -28,6 +28,7 @@ mnist = input_data.read_data_sets('./MNIST_data/', one_hot=True)
 #plt.imshow(np.reshape(mnist.train.images[100, :], (28, 28)), cmap='gray')
 
 # Saving Model Function
+
 def save_model(sess, model_path):
     if model_path is not None:
         print('Saving my model..')
@@ -35,13 +36,24 @@ def save_model(sess, model_path):
         saver = tf.train.Saver(tf.global_variables())
         saver.save(sess, model_path)
 
+def variable_summaries(var):
+    with tf.name_scope('summaries'):
+        mean = tf.reduce_mean(var)
+        tf.summary.scalar('mean', mean)
+        with tf.name_scope('stddev'):
+            stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
+        tf.summary.scalar('stddev', stddev)
+        tf.summary.scalar('max', tf.reduce_max(var))
+        tf.summary.scalar('min', tf.reduce_min(var))
+        tf.summary.histogram('histogram', var)
+
 # Messages Console
 print('Staring create a model for MNIST..');
 
 # Model Parameters
 n_input = 784
-n_hidden_1 = 256
-n_hidden_2 = 64
+n_hidden_1 = 128
+n_hidden_2 = 32
 n_output = 10
 net_input = tf.placeholder(tf.float32, [None, n_input])
 y_true = tf.placeholder(tf.float32, [None, 10])
@@ -74,7 +86,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 # Cost Formula
 cost = tf.reduce_sum(tf.nn.softmax_cross_entropy_with_logits(logits=Y, labels=y_true))
 
-eta = 1e-4
+eta = 0.0001
 optimizer = tf.train.AdamOptimizer(eta).minimize(cost)
 
 sess = tf.Session()
@@ -85,7 +97,7 @@ print('Starting to train...')
 
 # Starting Train
 batch_size = 50
-n_epochs = 1000
+n_epochs = 100
 l_loss = list()
 
 for epoch_i in range(n_epochs):
@@ -103,3 +115,19 @@ for epoch_i in range(n_epochs):
 
 # Saving Model
 save_model(sess, MODEL_PATH)
+
+# Print Params & write to Log file
+print('---------------------')
+print('Model - Parameters:')
+print('Batch Size: ', batch_size)
+print('Number of epoches: ', n_epochs)
+print('Learning reat: ', eta)
+print('Accuracy: ', l_loss[-1])
+print('---------------------')
+
+with open('./Logs/params.txt', 'a') as the_file:
+    the_file.write('Train:'  + '\n')
+    the_file.write('Batch Size: ' +  str(batch_size) + '\n')
+    the_file.write('Number of epoches: ' + str(n_epochs) + '\n')
+    the_file.write('Learning reat: ' + str(eta) + '\n')
+    the_file.write('Accuracy: ' + str(l_loss[-1]) + '\n')

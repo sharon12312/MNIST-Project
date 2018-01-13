@@ -10,8 +10,8 @@ PATH = './Images'
 
 mnist = input_data.read_data_sets('./MNIST_data/', one_hot=True)
 n_input = 784
-n_hidden_1 = 256
-n_hidden_2 = 64
+n_hidden_1 = 128
+n_hidden_2 = 32
 n_output = 10
 net_input = tf.placeholder(tf.float32, [None, n_input])
 y_true = tf.placeholder(tf.float32, [None, 10])
