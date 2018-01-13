@@ -1,51 +1,20 @@
 import tensorflow as tf
 import tensorflow.examples.tutorials.mnist.input_data as input_data
 
+# Model path
 MODEL_PATH = './Models/'
 
-# read the data and labels as ont-hot vectors
-# one-hot means a sparse vector for every observation where only
-# the class label is 1, and every other class is 0.
-# more info here:
+# Read the data and labels as ont-hot vectors
+# one-hot means a sparse vector for every observation where only the class label is 1, and every other class is 0.
 mnist = input_data.read_data_sets('./MNIST_data/', one_hot=True)
 
-# mnist is now a DataSet with accessors for:
-# 'train', 'test', and 'validation'.
-# within each, we can access:
-# images, labels, and num_examples
-# print(mnist.train.num_examples, mnist.test.num_examples, mnist.validation.num_examples)
-
-# the images are stored as:
-# n_observations x n_features tensor (n-dim array)
-# the labels are stored as n_observations x n_labels,
-# where each observation is a one-hot vector.
-# print(mnist.train.images.shape, mnist.train.labels.shape)
-
-# the range of the values of the images is from 0-1
-# print(np.min(mnist.train.images), np.max(mnist.train.images))
-
-# we can visualize any one of the images by reshaping it to a 28x28 image
-#plt.imshow(np.reshape(mnist.train.images[100, :], (28, 28)), cmap='gray')
-
 # Saving Model Function
-
 def save_model(sess, model_path):
     if model_path is not None:
         print('Saving my model..')
 
         saver = tf.train.Saver(tf.global_variables())
         saver.save(sess, model_path)
-
-def variable_summaries(var):
-    with tf.name_scope('summaries'):
-        mean = tf.reduce_mean(var)
-        tf.summary.scalar('mean', mean)
-        with tf.name_scope('stddev'):
-            stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
-        tf.summary.scalar('stddev', stddev)
-        tf.summary.scalar('max', tf.reduce_max(var))
-        tf.summary.scalar('min', tf.reduce_min(var))
-        tf.summary.histogram('histogram', var)
 
 # Messages Console
 print('Staring create a model for MNIST..');
@@ -100,6 +69,7 @@ batch_size = 50
 n_epochs = 100
 l_loss = list()
 
+# Epochs train
 for epoch_i in range(n_epochs):
     for batch_i in range(0, mnist.train.num_examples, batch_size):
         batch_xs, batch_ys = mnist.train.next_batch(batch_size)
