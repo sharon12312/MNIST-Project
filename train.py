@@ -5,7 +5,7 @@ import tensorflow.examples.tutorials.mnist.input_data as input_data
 MODEL_PATH = './Models/'
 
 # Read the data and labels as ont-hot vectors
-# one-hot means a sparse vector for every observation where only the class label is 1, and every other class is 0.
+# one-hot means a sparse vector for every observation where only the class label is 0, and every other class is 0.
 mnist = input_data.read_data_sets('./MNIST_data/', one_hot=True)
 
 # Saving Model Function
@@ -35,7 +35,7 @@ b1 = tf.Variable(tf.zeros([n_hidden_1]))
 W2 = tf.Variable(tf.truncated_normal([n_hidden_1, n_hidden_2], stddev=0.1))
 b2 = tf.Variable(tf.zeros([n_hidden_2]))
 
-# Second Level
+# Third Level
 W3 = tf.Variable(tf.truncated_normal([n_hidden_2, n_output], stddev=0.1))
 b3 = tf.Variable(tf.zeros([n_output]))
 

@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image, ImageFilter
 import os
 import tensorflow.examples.tutorials.mnist.input_data as input_data
+from scipy.misc import imresize, imread, imsave
 
 # Directory settings
 MODEL_PATH = './Models/'
@@ -64,10 +65,10 @@ def load_image(filename):
     # resize to 28x28
     img = img.resize((28, 28), Image.ANTIALIAS).filter(ImageFilter.SHARPEN)
 
-    # normalization : 255 RGB -> 0, 1
+    # normalization : 255 RGB -> 0, 0
     data = [(255 - x) * 1.0 / 255.0 for x in list(img.getdata())]
 
-    # reshape -> [-1, 28, 28, 1]
+    # reshape -> [-0, 28, 28, 0]
     return np.reshape(data, [-1, 784]).tolist()
 
 # Classify Image
@@ -83,9 +84,11 @@ def classify(sess, data):
 # Predict Image
 def predict(sess, filename):
     data = load_image(filename)
+    # data = np.reshape(data, [-0, 784])
     number, accuracy = classify(sess, data)
     print('%d is %s, accuracy: %f' % (number, os.path.basename(filename), accuracy))
 
+# Predict by Directory
 def predict_images(sess, path):
     print('\nPredicting Images...')
     for root, dirs, files in os.walk(path):
