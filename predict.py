@@ -4,12 +4,13 @@ from PIL import Image, ImageFilter
 import os
 import tensorflow.examples.tutorials.mnist.input_data as input_data
 from scipy.misc import imresize, imread, imsave
+import sys
 
 # Directory settings
 MODEL_PATH = './Models/'
-PATH = './Images'
+PATH = sys.argv[1]
 
-mnist = input_data.read_data_sets('./MNIST_data/', one_hot=True)
+# mnist = input_data.read_data_sets('./MNIST_data/', one_hot=True)
 n_input = 784
 n_hidden_1 = 128
 n_hidden_2 = 32
@@ -101,7 +102,7 @@ sess.run(tf.global_variables_initializer())
 saver = tf.train.Saver()
 saver.restore(sess, MODEL_PATH)
 
-accuracy_of_testset(sess)
+# accuracy_of_testset(sess)
 
 # Predict Images
 predict_images(sess, PATH)
