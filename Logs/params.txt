@@ -1,65 +1,87 @@
 First Train:
 Batch Size: 50
-Number of epoches: 1
+Number of epoches: 100
 Learning reat: 0.0001
-Accuracy: 0.9104
+Train Accuracy: 0.9104
+Validation Accuracy: 0.9087
+Test Accuracy: 0.9002
 ------------
 Train:
 Batch Size: 100
 Number of epoches: 40
 Learning reat: 0.0001
 Accuracy: 0.9706
+Validation Accuracy: 0.9678
+Test Accuracy: 0.9609
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 50
 Learning reat: 0.001
 Accuracy: 0.9802
+Validation Accuracy: 0.9787
+Test Accuracy: 0.9732
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 200
 Learning reat: 0.01
 Accuracy: 0.6694
+Validation Accuracy: 0.6557
+Test Accuracy: 0.6578
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 100
 Learning reat: 0.001
 Accuracy: 0.98
+Validation Accuracy: 0.9797
+Test Accuracy: 0.9762
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 50
 Learning reat: 0.001
 Accuracy: 0.9822
+Validation Accuracy: 0.9087
+Test Accuracy: 0.9002
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 50
 Learning reat: 0.0001
 Accuracy: 0.9772
+Validation Accuracy: 0.9766
+Test Accuracy: 0.9754
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 50
 Learning reat: 0.001
 Accuracy: 0.9796
+Validation Accuracy: 0.9787
+Test Accuracy: 0.9702
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 50
 Learning reat: 0.0001
 Accuracy: 0.9696
+Validation Accuracy: 0.9687
+Test Accuracy: 0.9602
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 70
 Learning reat: 0.0001
 Accuracy: 0.975
+Validation Accuracy: 0.9787
+Test Accuracy: 0.9712
 ------------
 Train:
 Batch Size: 50
 Number of epoches: 100
 Learning reat: 0.0001
-Accuracy: 0.973
+Accuracy: 0.9814
+Validation Accuracy: 0.9785
+Test Accuracy: 0.973

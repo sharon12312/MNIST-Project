@@ -37,28 +37,6 @@ Y2 = tf.nn.relu(tf.matmul(Y1, W2) + b2)
 Ylogits = tf.matmul(Y2, W3) + b3
 Y = tf.nn.softmax(Ylogits)
 
-## Check Accuracy
-def check_accuracy(sess, feed_dict):
-    correct_prediction = tf.equal(tf.argmax(Y, 1), tf.argmax(y_true, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-    accuracy_rates = sess.run(accuracy, feed_dict=feed_dict)
-
-    return accuracy_rates
-
-# Accuracy Test
-def accuracy_of_testset(sess):
-    print('Calculating accuracy of test set..')
-
-    X = mnist.test.images.reshape([-1, 784])
-    Y = mnist.test.labels
-    feed_dict = {
-        net_input: X,
-        y_true: Y
-    }
-
-    accuracy = check_accuracy(sess, feed_dict)
-    print('Accuracy of test set: %f' % accuracy)
-
 # Load Image and Reshape
 def load_image(filename):
     img = Image.open(filename).convert('L')
@@ -101,8 +79,6 @@ sess.run(tf.global_variables_initializer())
 
 saver = tf.train.Saver()
 saver.restore(sess, MODEL_PATH)
-
-# accuracy_of_testset(sess)
 
 # Predict Images
 predict_images(sess, PATH)

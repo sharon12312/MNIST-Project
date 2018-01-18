@@ -58,43 +58,6 @@ def accuracy_of_testset(sess):
     accuracy = check_accuracy(sess, feed_dict)
     print('Accuracy of test set: %f' % accuracy)
 
-# Load Image and Reshape
-def load_image(filename):
-    img = Image.open(filename).convert('L')
-
-    # resize to 28x28
-    img = img.resize((28, 28), Image.ANTIALIAS).filter(ImageFilter.SHARPEN)
-
-    # normalization : 255 RGB -> 0, 0
-    data = [(255 - x) * 1.0 / 255.0 for x in list(img.getdata())]
-
-    # reshape -> [-0, 28, 28, 0]
-    return np.reshape(data, [-1, 784]).tolist()
-
-# Classify Image
-def classify(sess, data):
-    feed_dict = {
-        net_input: data
-    }
-    number = sess.run(tf.argmax(Y, 1), feed_dict)[0]
-    accuracy = sess.run(tf.nn.softmax(Y), feed_dict)[0]
-
-    return number, accuracy[number]
-
-# Predict Image
-def predict(sess, filename):
-    data = load_image(filename)
-    # data = np.reshape(data, [-0, 784])
-    number, accuracy = classify(sess, data)
-    print('%d is %s, accuracy: %f' % (number, os.path.basename(filename), accuracy))
-
-# Predict by Directory
-def predict_images(sess, path):
-    print('\nPredicting Images...')
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            predict(sess, PATH + '/' + file)
-
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 
@@ -102,6 +65,3 @@ saver = tf.train.Saver()
 saver.restore(sess, MODEL_PATH)
 
 accuracy_of_testset(sess)
-
-# Predict Images
-predict_images(sess, PATH)
